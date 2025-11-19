@@ -1,3 +1,5 @@
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -5,9 +7,11 @@ import java.time.format.DateTimeFormatter;
 public class CartaoEscolar {
     private double saldo;
     private ArrayList<String> historico = new ArrayList<>();
+    private Aluno aluno;
 
-    public CartaoEscolar(double saldoInicial){
+    public CartaoEscolar(double saldoInicial, Aluno aluno){
         this.saldo = saldoInicial;
+        this.aluno = aluno;
     }
 
     public void pagarPassagemComum(){
@@ -21,11 +25,16 @@ public class CartaoEscolar {
     }
 
     public void pagarPassagemComDesconto(){
-        if(this.saldo >= 2.25){
-            this.saldo -= 2.25;
-            registrarOperacao("Passagem com desconto paga com sucesso!");
+        DayOfWeek diaAtual = LocalDate.now().getDayOfWeek();
+        if(diaAtual != DayOfWeek.SATURDAY && diaAtual != DayOfWeek.SUNDAY){
+            if(this.saldo >= 2.25){
+                this.saldo -= 2.25;
+                registrarOperacao("Passagem com desconto paga com sucesso!");
+            }else{
+                registrarOperacao("Saldo insuficiente!");
+            }
         }else{
-            registrarOperacao("Saldo insuficiente!");
+            registrarOperacao("Tentativa de uso em final de semana.");
         }
     }
 
@@ -64,6 +73,24 @@ public class CartaoEscolar {
         String entrada = gerarTimestamp() + " - " + mensagem;
         historico.add(entrada);
         System.out.println(mensagem);
+    }
+
+    public void registrarOperacaoFuncionario(String mensagem){
+        registrarOperacao("Funcionario: " + mensagem);
+    }
+
+    public void exibirDadosAluno(){
+        System.out.println("------------------------------------------------");
+        System.out.println(aluno);
+        System.out.println("------------------------------------------------");
+    }
+
+    public double getSaldo(){
+        return saldo;
+    }
+
+    public void setSaldo(double novoSaldo){
+        this.saldo = novoSaldo;
     }
 
 

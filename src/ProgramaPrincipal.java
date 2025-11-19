@@ -1,20 +1,112 @@
+import java.time.LocalDate;
+import java.util.Scanner;
+
 public class ProgramaPrincipal {
     public static void main(String[] args){
-        CartaoEscolar cartao = new CartaoEscolar(30);
-        System.out.println(cartao);
+        Scanner scanner =new Scanner(System.in);
+        Funcionario funcionario = new Funcionario("José da Silva Sauro", "19382289","Agente 01");
+        Aluno novoAluno = null;
+        CartaoEscolar cartao = null;
 
-        cartao.pagarPassagemComum();
+        int opcao;
 
-        System.out.println(cartao);
+        do {
+            System.out.println("\n===== MENU PRINCIPAL =====");
+            System.out.println("1. Cadastrar aluno");
+            System.out.println("2. Emitir cartão escolar");
+            System.out.println("3. Carregar saldo");
+            System.out.println("4. Exibir histórico");
+            System.out.println("5. Exibir dados do aluno");
+            System.out.println("6. Consultar saldo");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
 
-        cartao.carregarCartao(20);
+            switch (opcao){
+                case 0:
+                    System.out.println("Encerramendo o sistema...");
+                    break;
+                case 1:
+                    System.out.println("===== Cadastro de Aluno =====");
+                    System.out.print("Nome completo: ");
+                    String nome = scanner.nextLine();
 
-        System.out.println(cartao);
+                    System.out.print("Matrícula: ");
+                    String matricula = scanner.nextLine();
 
-        cartao.exibirHistorico();
+                    System.out.print("Curso: ");
+                    String curso = scanner.nextLine();
 
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
 
+                    System.out.print("Ano de nascimento (ex: 2000): ");
+                    int ano = scanner.nextInt();
 
+                    System.out.print("Mês de nascimento (1 a 12): ");
+                    int mes = scanner.nextInt();
 
+                    System.out.print("Dia de nascimento: ");
+                    int dia = scanner.nextInt();
+                    scanner.nextLine();
+
+                    LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+
+                    novoAluno = funcionario.cadastrarAluno(nome, matricula, curso, cpf, dataNascimento);
+                    System.out.println("\nAluno cadastrado com sucesso!");
+                    break;
+
+                case 2:
+                    if (novoAluno == null){
+                        System.out.println("Cadastre um aluno primeiro.");
+                    } else {
+                        cartao = funcionario.emitirCartaoEscolar(novoAluno);
+                        System.out.println("Cartao emitido com saldo inicial de R$100,00");
+                    }
+                    break;
+
+                case 3:
+                    if (cartao == null){
+                        System.out.println("Emita um cartão primeiro.");
+                    } else {
+                        System.out.println("Valor a carregar: R$ ");
+                        double valor = scanner.nextDouble();
+                        scanner.nextLine();
+                        funcionario.carregarSaldo(cartao, valor);
+                    }
+                    break;
+
+                case 4:
+                    if (cartao == null){
+                        System.out.println("Emita um cartão primeiro.");
+                    } else {
+                        cartao.exibirHistorico();
+                    }
+                    break;
+
+                case 5:
+                    if (cartao == null){
+                        System.out.println("Emita um cartão primeiro.");
+                    } else {
+                        cartao.exibirDadosAluno();
+                    }
+                    break;
+
+                case 6:
+                    if (cartao == null){
+                        System.out.println("Emita um cartão primeiro.");
+                    } else {
+                        System.out.println("O saldo atual do cartão: " + cartao.getSaldo());
+                    }
+                    break;
+
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
+
+        scanner.close();
     }
+
 }
