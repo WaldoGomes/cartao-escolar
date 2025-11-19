@@ -43,25 +43,6 @@ Este projeto simula o funcionamento de um cartão escolar utilizado por estudant
 
 ---
 
-## 📌 Exemplo de uso
-
-CartaoEscolar cartao = new CartaoEscolar(10.00);
-cartao.pagarPassagemComDesconto();
-cartao.carregarCartao(5.00);
-cartao.exibirHistorico();
-System.out.println(cartao);
-
-Saída esperada:
-
-Passagem com desconto paga com sucesso!
-Cartão recarregado com R$ 5.00
-Histórico de operações:
-1. 18/11/2025 19:48:12 - Passagem com desconto paga com sucesso!
-2. 18/11/2025 19:48:13 - Cartão recarregado com R$ 5.00
-   O cartão possui saldo de 12.75 reais.
-
----
-
 ## 🛠️ Tecnologias
 
 - Java 11
