@@ -10,6 +10,7 @@ Este projeto simula o funcionamento de um cartão escolar utilizado por estudant
 - Recarga de saldo
 - Registro de histórico de operações com data e hora
 - Exibição do saldo atual
+  
 🛠️ Implementadas hoje
 - Classe Funcionario com métodos para:
 - Cadastrar aluno
@@ -21,6 +22,7 @@ Este projeto simula o funcionamento de um cartão escolar utilizado por estudant
 - Recarga de saldo
 - Exibição de histórico
 - Exibição de dados do aluno
+  
 ⏳ Em breve
 - Menu exclusivo para o aluno (pagamento de passagens e consulta de saldo)
 - Validações adicionais (ex: CPF, idade mínima)
