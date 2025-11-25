@@ -18,14 +18,4 @@ public class Funcionario {
     public CartaoEscolar emitirCartaoEscolar(Aluno aluno){
         return new CartaoEscolar(100.0, aluno);
     }
-
-    public void registrarNoCartao(CartaoEscolar cartao, String mensagem){
-        cartao.registrarOperacaoFuncionario(mensagem);
-    }
-
-    public void carregarSaldo(CartaoEscolar cartao, double valor){
-        double salddoAtual = cartao.getSaldo();
-        cartao.setSaldo(salddoAtual + valor);
-        cartao.registrarOperacaoFuncionario("Saldo carregado: R$ " + valor);
-    }
 }

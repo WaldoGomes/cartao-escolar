@@ -14,29 +14,30 @@ public class CartaoEscolar {
         this.aluno = aluno;
     }
 
-    public void pagarPassagemComum(){
+    public void pagarPassagemComum(String linhaOnibus, String identificadorOnibus){
         if(this.saldo >= 4.50){
             this.saldo -= 4.50;
-            registrarOperacao("Passagem comum paga com sucesso!");
+            registrarOperacao("Passagem com desconto na linha " + linhaOnibus + " pelo ônibus " + identificadorOnibus);
         }else{
             registrarOperacao("Saldo insuficiente!");
         }
 
     }
 
-    public void pagarPassagemComDesconto(){
+    public void pagarPassagemComDesconto(String linhaOnibus, String identificadorOnibus) {
         DayOfWeek diaAtual = LocalDate.now().getDayOfWeek();
-        if(diaAtual != DayOfWeek.SATURDAY && diaAtual != DayOfWeek.SUNDAY){
-            if(this.saldo >= 2.25){
+        if (diaAtual != DayOfWeek.SATURDAY && diaAtual != DayOfWeek.SUNDAY) {
+            if (this.saldo >= 2.25) {
                 this.saldo -= 2.25;
-                registrarOperacao("Passagem com desconto paga com sucesso!");
-            }else{
+                registrarOperacao("Passagem com desconto na linha " + linhaOnibus + " pelo ônibus " + identificadorOnibus);
+            } else {
                 registrarOperacao("Saldo insuficiente!");
             }
-        }else{
+        } else {
             registrarOperacao("Tentativa de uso em final de semana.");
         }
     }
+
 
     public void carregarCartao(double valor){
         if(valor <= 0){
@@ -75,13 +76,11 @@ public class CartaoEscolar {
         System.out.println(mensagem);
     }
 
-    public void registrarOperacaoFuncionario(String mensagem){
-        registrarOperacao("Funcionario: " + mensagem);
-    }
-
     public void exibirDadosAluno(){
         System.out.println("------------------------------------------------");
         System.out.println(aluno);
+        System.out.println("------------------------------------------------");
+        System.out.println("Saldo: R$ " + saldo);
         System.out.println("------------------------------------------------");
     }
 
@@ -91,6 +90,11 @@ public class CartaoEscolar {
 
     public void setSaldo(double novoSaldo){
         this.saldo = novoSaldo;
+    }
+
+    public void consultarSaldo(){
+
+        System.out.printf("Saldo atual: R$ %.2f%n", saldo);
     }
 
 

@@ -17,7 +17,7 @@ public class ProgramaPrincipal {
             System.out.println("3. Carregar saldo");
             System.out.println("4. Exibir histórico");
             System.out.println("5. Exibir dados do aluno");
-            System.out.println("6. Consultar saldo");
+            System.out.println("6. Exibir saldo do cartão");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
@@ -25,7 +25,7 @@ public class ProgramaPrincipal {
 
             switch (opcao){
                 case 0:
-                    System.out.println("Encerramendo o sistema...");
+                    System.out.println("Sistema encerrado!");
                     break;
                 case 1:
                     System.out.println("===== Cadastro de Aluno =====");
@@ -41,20 +41,43 @@ public class ProgramaPrincipal {
                     System.out.print("CPF: ");
                     String cpf = scanner.nextLine();
 
-                    System.out.print("Ano de nascimento (ex: 2000): ");
-                    int ano = scanner.nextInt();
+                    LocalDate dataNascimento = null;
+                    boolean dataValida = false;
 
-                    System.out.print("Mês de nascimento (1 a 12): ");
-                    int mes = scanner.nextInt();
+                    do{
+                        try {
+                            System.out.print("Ano de nascimento (ex: 2000): ");
+                            int ano = scanner.nextInt();
 
-                    System.out.print("Dia de nascimento: ");
-                    int dia = scanner.nextInt();
-                    scanner.nextLine();
+                            int mes;
+                            do {
+                                System.out.print("Mês de nascimento (1 a 12): ");
+                                mes = scanner.nextInt();
+                                if (mes < 1 || mes > 12) {
+                                    System.out.println("Insira um número válido");
+                                }
+                            } while (mes < 1 || mes > 12);
 
-                    LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+                            int dia;
+                            do {
+                                System.out.print("Dia de nascimento: ");
+                                dia = scanner.nextInt();
+                                scanner.nextLine();
+                                if (dia < 1 || dia > 31) {
+                                    System.out.println("Insira um número válido");
+                                }
+                            } while (dia < 1 || dia > 31);
 
-                    novoAluno = funcionario.cadastrarAluno(nome, matricula, curso, cpf, dataNascimento);
-                    System.out.println("\nAluno cadastrado com sucesso!");
+                            dataNascimento = LocalDate.of(ano, mes, dia);
+                            novoAluno = funcionario.cadastrarAluno(nome, matricula, curso, cpf, dataNascimento);
+                            System.out.println("\nAluno cadastrado com sucesso!");
+                            dataValida = true;
+
+                        }catch (Exception e){
+                            System.out.println("Data inválida! Verifique dia, mês e ano e tente novamente.");
+                        }
+                    } while (!dataValida);
+
                     break;
 
                 case 2:
@@ -70,10 +93,17 @@ public class ProgramaPrincipal {
                     if (cartao == null){
                         System.out.println("Emita um cartão primeiro.");
                     } else {
-                        System.out.println("Valor a carregar: R$ ");
-                        double valor = scanner.nextDouble();
-                        scanner.nextLine();
-                        funcionario.carregarSaldo(cartao, valor);
+                        double valor;
+                        do {
+                            System.out.print("Valor a carregar: R$ ");
+                            valor = scanner.nextDouble();
+                            if (valor <= 0) {
+                                System.out.println("Insira um valor positivo!");
+                            }
+                        } while (valor <= 0);
+
+                        cartao.carregarCartao(valor);
+                        System.out.println("Recarga realizada com sucesso!");
                     }
                     break;
 
@@ -97,7 +127,7 @@ public class ProgramaPrincipal {
                     if (cartao == null){
                         System.out.println("Emita um cartão primeiro.");
                     } else {
-                        System.out.println("O saldo atual do cartão: " + cartao.getSaldo());
+                        cartao.consultarSaldo();
                     }
                     break;
 
