@@ -4,13 +4,31 @@ Este projeto simula o funcionamento de um cartão escolar utilizado por estudant
 
 ---
 
-## ✨ Funcionalidades
-
+## ✨ ✅ Implementadas
 - Pagamento de passagem comum
 - Pagamento de passagem com desconto
 - Recarga de saldo
 - Registro de histórico de operações com data e hora
 - Exibição do saldo atual
+  
+🛠️ Implementadas hoje
+- Classe Funcionario com métodos para:
+- Cadastrar aluno
+- Emitir cartão escolar
+- Carregar saldo
+- Menu interativo no console com opções para:
+- Cadastro de aluno
+- Emissão de cartão
+- Recarga de saldo
+- Exibição de histórico
+- Exibição de dados do aluno
+  
+⏳ Em breve
+- Menu exclusivo para o aluno (pagamento de passagens e consulta de saldo)
+- Validações adicionais (ex: CPF, idade mínima)
+- Persistência de dados em arquivos
+- Relatórios de uso e estatísticas
+
 
 ---
 
@@ -22,25 +40,6 @@ Este projeto simula o funcionamento de um cartão escolar utilizado por estudant
 2. Abra o projeto no IntelliJ IDEA ou outra IDE Java
 
 3. Execute a classe CartaoEscolar.java com um método main para testar as funcionalidades
-
----
-
-## 📌 Exemplo de uso
-
-CartaoEscolar cartao = new CartaoEscolar(10.00);
-cartao.pagarPassagemComDesconto();
-cartao.carregarCartao(5.00);
-cartao.exibirHistorico();
-System.out.println(cartao);
-
-Saída esperada:
-
-Passagem com desconto paga com sucesso!
-Cartão recarregado com R$ 5.00
-Histórico de operações:
-1. 18/11/2025 19:48:12 - Passagem com desconto paga com sucesso!
-2. 18/11/2025 19:48:13 - Cartão recarregado com R$ 5.00
-   O cartão possui saldo de 12.75 reais.
 
 ---
 
